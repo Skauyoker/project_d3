@@ -87,8 +87,10 @@ class PostCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        if self.request.path == '/news/articles/create/':
-            post.namePost = 'AC'
+        if self.request.path == '/posts/articles/create/':
+            post.category_type = 'AR'
+        elif self.request.path == '/posts/news/create/':
+            post.category_type = 'NW'
         post.save()
 
         return super().form_valid(form)
