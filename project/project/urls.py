@@ -26,4 +26,7 @@ urlpatterns = [
     path('products/', include('simpleapp.urls')),
     path('posts/', include('news.urls')),
     path('multiply/', multiply),
+    path('admin/', admin.site.urls),
+    path("accounts/", include("allauth.urls")),
+    path("accounts/", include("accounts.urls")),
 ]

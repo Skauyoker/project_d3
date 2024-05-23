@@ -4,26 +4,28 @@
 {% load custom_tags %}
 
 {% block title %}
-Posts
+Search
 {% endblock title %}
 
 {% block content %}
 <h1>Все новости</h1>
-<!-- Используем переданную из представления переменную time_now
-и применяем к ней фильтр date. По назначению этот фильтр очень похож
-на метод strftime у объекта datetime в Python — вывод времени
-в указанном формате. -->
+
+   {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
+   <form action="" method="get">
+       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+       {{ filterset.form.as_p }}
+       {# Добавим кнопку отправки данных формы #}
+       <input type="submit" value="Найти" />
+   </form>
 <h3>{{ time_now|date:'M d Y' }}</h3>
 <!-- Если в переменной next_sale будет None,
 то выведется указанный в фильтре текст -->
 <h3> Количество новостей: {{ Posts|length }} </h3>
 <hr>
-
 {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
-    {% if perms.simpleapp.add_product %}
-    <a href="{% url 'post_create' %}">Добавить товар</a>
+    {% if perms.news.add_post %}
+    <a href="{% url 'product_create' %}">Добавить товар</a>
     {% endif %}
-
 {% if Posts %}
 <table>
     <tr>
@@ -31,6 +33,11 @@ Posts
         <td>Заголовок</td>
         <td>Дата</td>
         <td>Текст</td>
+
+        {# Условие получается составным. #}
+                {% if perms.news.change_post or perms.news.delete_post %}
+                <td>Действия</td>
+                {% endif %}
     </tr>
 
     <!-- Для каждого товара будете генерироваться новая строчка,
@@ -50,15 +57,15 @@ Posts
          Все остальные символы превратятся в многоточие. -->
         <td>{{ Post.time_in }}</td>
         <td>{{ Post.text|truncatechars:20|censor }}</td>
-            <td>
-                {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
-                {% if perms.news.change_post %}
-                <a href="{% url 'post_update' pk=Post.id %}">Изменить</a>
-                {% endif %}
-                {% if perms.news.delete_product %}
-                <a href="{% url 'post_delete' Post.id %}">Удалить</a>
-                {% endif %}
-            </td>
+        <td>
+                    {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                    {% if perms.news.change_post %}
+                    <a href="{% url 'post_update' pk=Post.id %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.news.delete_post %}
+                    <a href="{% url 'post_delete' Post.id %}">Удалить</a>
+                    {% endif %}
+                </td>
     </tr>
     {% endfor %}
 

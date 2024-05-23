@@ -7,6 +7,7 @@ from .models import Product
 from .filters import ProductFilter
 from .forms import ProductForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class ProductsList(ListView):
@@ -52,13 +53,15 @@ class ProductDetail(DetailView):
 
 
 # Добавляем новое представление для создания товаров.
-class ProductCreate(CreateView):
+class ProductCreate(PermissionRequiredMixin, CreateView):
+    raise_exception = True
     # Указываем нашу разработанную форму
     form_class = ProductForm
     # модель товаров
     model = Product
     # и новый шаблон, в котором используется форма.
     template_name = 'product_edit.html'
+    permission_required = ("news.change_post")
 
 # def create_product(request):
 #     form = ProductForm()

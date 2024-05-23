@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
 # Импортируем созданное нами представление
 from .views import PostsList, ThePost, PostsSearch, PostCreate, PostUpdate, PostDelete
 from .filters import NewsFilter

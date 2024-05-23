@@ -83,7 +83,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
-    permission_required = ("news.change_post")
+    permission_required = ("news.add_post")
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -107,4 +107,4 @@ class PostDelete(PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
-    permission_required = ("news.change_post")
+    permission_required = ("news.delete_post")
