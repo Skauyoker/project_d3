@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib import admin
 # Импортируем созданное нами представление
-from .views import PostsList, ThePost, PostsSearch, PostCreate, PostUpdate, PostDelete
+from .views import (PostsList, ThePost, PostsSearch, PostCreate, PostUpdate, PostDelete, subscriptions)
 from .filters import NewsFilter
 
 
@@ -26,4 +26,5 @@ urlpatterns = [
    path('news/create/', PostCreate.as_view(), name='post_create'),
    path('news/<int:pk>/edit/', PostUpdate.as_view(), name='post_update'),
    path('news/<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
+   path('subscriptions/', subscriptions, name='subscriptions'),
 ]

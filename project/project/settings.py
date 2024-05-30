@@ -151,7 +151,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'yandex': {
@@ -165,3 +165,24 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 # }
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "Pr0jectNews"
+EMAIL_HOST_PASSWORD = "nrmhnsyslseauypg"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "Pr0jectNews@yandex.ru"
+
+SERVER_EMAIL = "Pr0jectNews@yandex.ru"
+MANAGERS = (
+    ('Fpayboy', 'fpayboy@mail.ru'),
+)
+ADMINS = (
+    ('admin', 'fpayboy@mail.ru'),
+)
+
+EMAIL_SUBJECT_PREFIX = '[SkillFactoryProject]'
+

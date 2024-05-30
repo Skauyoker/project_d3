@@ -24,7 +24,7 @@ Search
 <hr>
 {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
     {% if perms.news.add_post %}
-    <a href="{% url 'product_create' %}">Добавить товар</a>
+    <a href="{% url 'post_create' %}">Добавить товар</a>
     {% endif %}
 {% if Posts %}
 <table>
