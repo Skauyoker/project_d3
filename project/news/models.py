@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .Pos import CATEGORY_POST, NEWS
 from django.db.models import Sum
-from django.urls import reverse
 
 
 class Author(models.Model):
@@ -30,6 +28,13 @@ class Category(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    NEWS = 'NW'
+    ARTICLE = 'AR'
+
+    CATEGORY_POST = [
+        (NEWS, 'новость'),
+        (ARTICLE, 'статья')
+    ]
     category_type = models.CharField(max_length=2, choices=CATEGORY_POST, default=NEWS)
     time_in = models.DateTimeField(auto_now_add=True, )
     post_category = models.ManyToManyField(Category, through='PostCategory')
@@ -48,11 +53,11 @@ class Post(models.Model):
     def preview(self):
         return self.text[0:128] + '...'
 
-    def get_absolute_url(self):
-        return reverse('news_detail', args=[str(self.id)])
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/posts/{self.id}'
 
     # def __str__(self):
-    #     return f'{self.author.title()}: {self.text[:20]}'
+    #     return f'{self.category_type.CATEGORY_POST}'
 
 
 class PostCategory(models.Model):

@@ -90,10 +90,8 @@ class PostCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        if self.request.path == '/posts/articles/create/':
-            post.category_type = 'AR'
-        elif self.request.path == '/posts/news/create/':
-            post.category_type = 'NW'
+        if self.request.path == '/news/articles/create/':
+            post.namePost = 'AC'
         post.save()
 
         return super().form_valid(form)
@@ -129,7 +127,7 @@ def subscriptions(request):
                 category=category,
             ).delete()
 
-    categories_with_subscriptions = Post.category_type.objects.annotate(
+    categories_with_subscriptions = Category.objects.annotate(
         user_subscribed=Exists(
             Subscription.objects.filter(
                 user=request.user,

@@ -21,12 +21,7 @@ from .views import multiply
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
-    # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
-    # подключались к главному приложению с префиксом products/.
-    path('products/', include('simpleapp.urls')),
-    path('posts/', include('news.urls')),
+    path('news/', include('news.urls')),
     path('multiply/', multiply),
-    path('admin/', admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path("accounts/", include("accounts.urls")),
 ]

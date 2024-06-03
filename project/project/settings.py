@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'simpleapp',
     'news',
     'django_filters',
     'allauth',
@@ -140,7 +139,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-LOGIN_REDIRECT_URL = "/posts"
+LOGIN_REDIRECT_URL = "/news"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
