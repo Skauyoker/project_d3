@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.urls import reverse_lazy
 
 
 class Author(models.Model):
@@ -54,10 +55,10 @@ class Post(models.Model):
         return self.text[0:128] + '...'
 
     def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
-        return f'/posts/{self.id}'
+        return reverse_lazy('the_post', kwargs={'pk': self.pk})
 
-    # def __str__(self):
-    #     return f'{self.category_type.CATEGORY_POST}'
+    def __str__(self):
+        return f'{self.post_category}'
 
 
 class PostCategory(models.Model):
